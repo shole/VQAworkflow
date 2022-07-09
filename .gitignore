@@ -1,5 +1,7 @@
-/VQA/**/**.pcx
-/VQA/**/**/**.png
-/VQA/**/**.png
-/VQA/*.VQA
-/VQA/*.avi
+**.pcx
+**.VQA
+**.avi
+/Blade Runner/**
+**.png
+**.rar
+**.tif
