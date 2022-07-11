@@ -34,6 +34,10 @@ def fixfile(file):
 	# exit()
 	for xi in range(4, shape[1], 4):
 		for yi in range(4, shape[0], 4):
+
+			if np.all(rgb[yi, xi]>rgb[yi, xi+1],axis=0):
+				continue
+
 			# verticalpixel_1=rgb[yi+0][xi+0]
 			# verticalpixel_2=rgb32[yi+2][xi+0]
 			# verticalpixel=(verticalpixel_2+verticalpixel_1)/2
