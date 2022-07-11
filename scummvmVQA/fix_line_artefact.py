@@ -268,8 +268,14 @@ def fixfile(file):
 
 
 with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+	time.time()
 	filecount = 0
 	for _ in executor.map(lambda x: fixfile(x), filelist):
 		filecount += 1
 		if filecount % 10 == 0:
-			print(str(filecount) + "/" + str(filelistlen))
+			timepassed=time.time()
+			estFullTime=(timePassed/filecount)*len(filelist)
+			msg=str(filecount) + "/" + str(filelistlen)
+			estTimeRemaining = max(0, estFullTime - timePassed)
+			msg += " " + str(datetime.timedelta(seconds=estTimeRemaining)).split('.')[0] + " remaining..."
+			print(msg)
