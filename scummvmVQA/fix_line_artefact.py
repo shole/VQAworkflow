@@ -6,14 +6,15 @@ import cv2
 import numpy as np
 # import multiprocessing
 import concurrent.futures
+import datetime
 
-sourceextension=".png"
+sourceextension=".tif"
 targetextension=".png"
 
 
 fixline=True
 fixpoints=True
-debug=True
+debug=False
 
 filelist = sorted([x for x in os.listdir(".") if x.lower().endswith(sourceextension)])
 
@@ -24,18 +25,21 @@ if not os.path.exists(fixedpath):
 
 cv2.setUseOptimized(True)
 
-def fixfile(file):
-	starttime = time.time()
-	rgb = cv2.imread(file, cv2.IMREAD_COLOR)
-	# rgb = cv2.imread(file, cv2.IMREAD_UNCHANGED)
-	# print(type(rgb[0][0][0]))
-	# rgb32=rgb.astype(np.float32)
-	shape = rgb.shape
-	# exit()
-	for xi in range(4, shape[1], 4):
-		for yi in range(4, shape[0], 4):
 
-			if np.all(rgb[yi, xi]>rgb[yi, xi+1],axis=0):
+def fixfile(file):
+	if os.path.exists(fixedpath+"\\"+file):
+		return
+	starttime = time.time()
+	#rgb = cv2.imread(file, cv2.IMREAD_UNCHANGED)#.astype(np.float32)
+	rgb = cv2.imread(file, cv2.IMREAD_COLOR)#.astype(np.float32)
+
+	# with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
+	# 	for _ in executor.map(lambda xi: fixfile_x(rgb,xi), range(4, rgb.shape[1], 4)):
+	# 		pass
+
+	for yi in range(4, rgb.shape[0], 4):
+		for xi in range(4, rgb.shape[1], 4):
+			if np.average(rgb[yi, xi]) >= np.average(rgb[yi, xi + 1]) or np.average(rgb[yi, xi]) >= np.average(rgb[yi, xi - 1]):
 				continue
 
 			# verticalpixel_1=rgb[yi+0][xi+0]
@@ -49,7 +53,8 @@ def fixfile(file):
 			verticalline_right = rgb[yi:yi + 4, xi + 1:xi + 3]
 			verticalline_bordering = np.concatenate((verticalline_left, verticalline_right), axis=1)
 
-			verticalline_bordering_B, verticalline_bordering_G, verticalline_bordering_R = cv2.split(verticalline_bordering)
+			verticalline_bordering_B, verticalline_bordering_G, verticalline_bordering_R = cv2.split(
+				verticalline_bordering)
 			verticalline_bordering_R_flat = verticalline_bordering_R.flatten()
 			verticalline_bordering_G_flat = verticalline_bordering_G.flatten()
 			verticalline_bordering_B_flat = verticalline_bordering_B.flatten()
@@ -68,7 +73,9 @@ def fixfile(file):
 
 			maxvariance = 10
 			# invalidate high variance bordering lines
-			if not (range_of_vals(verticalline_bordering_R_flat) > maxvariance and range_of_vals(verticalline_bordering_G_flat) > maxvariance and range_of_vals(verticalline_bordering_B_flat) > maxvariance):
+			if not (range_of_vals(verticalline_bordering_R_flat) > maxvariance and range_of_vals(
+					verticalline_bordering_G_flat) > maxvariance and range_of_vals(
+				verticalline_bordering_B_flat) > maxvariance):
 				if fixline:
 
 					verticalline = rgb[yi:yi + 4, xi:xi + 1]
@@ -80,7 +87,8 @@ def fixfile(file):
 
 					maxvariance = 4
 					# invalidate high variance lines
-					if not (range_of_vals(verticalline_R_flat) > maxvariance and range_of_vals(verticalline_G_flat) > maxvariance and range_of_vals(verticalline_B_flat) > maxvariance):
+					if not (range_of_vals(verticalline_R_flat) > maxvariance and range_of_vals(
+							verticalline_G_flat) > maxvariance and range_of_vals(verticalline_B_flat) > maxvariance):
 
 						verticalline_R_max = np.max(verticalline_R_flat).astype(np.int16)
 						verticalline_G_max = np.max(verticalline_G_flat).astype(np.int16)
@@ -224,7 +232,8 @@ def fixfile(file):
 							# rgb[yi + 0][xi + 0] = verticalpixel_1_surrounded
 							# rgb[yi + 0][xi + 0] = rgb[yi - 1][xi + 0]/2 + rgb[yi + 1][xi + 0]/2
 							# rgb[yi + 0][xi + 0] = rgb[yi + 0][xi - 1]/2 + rgb[yi + 0][xi + 1]/2
-							rgb[yi + 0][xi + 0] = rgb[yi + 0][xi - 1] / 4 + rgb[yi + 0][xi + 1] / 4 + rgb[yi - 1][xi + 0] / 4 + rgb[yi + 1][xi + 0] / 4
+							rgb[yi + 0][xi + 0] = rgb[yi + 0][xi - 1] / 4 + rgb[yi + 0][xi + 1] / 4 + rgb[yi - 1][
+								xi + 0] / 4 + rgb[yi + 1][xi + 0] / 4
 
 						pixel_2_threshold = 5
 						# if np.all(verticalpixel_2_surrounded - verticalpixel_2 > pixel_2_threshold):
@@ -244,38 +253,43 @@ def fixfile(file):
 								# rgb[yi + 2][xi + 0] = verticalpixel_2_surrounded
 								# rgb[yi + 2][xi + 0] = rgb[yi + 1][xi + 0]/2 + rgb[yi + 3][xi + 0]/2
 								# rgb[yi + 2][xi + 0] = rgb[yi + 2][xi + 1]/2 + rgb[yi + 2][xi - 1]/2
-								rgb[yi + 2][xi + 0] = rgb[yi + 2][xi + 1] / 4 + rgb[yi + 2][xi - 1] / 4 + rgb[yi + 1][xi + 0] / 4 + rgb[yi + 3][xi - 0] / 4
-						# if not blockavg - verticalpixel_avg > threshold: # line
-						# 	rgb[yi + 0][xi + 0] = (255, 0, 0)
-						# 	rgb[yi + 1][xi + 0] = (255, 0, 0)
-						# 	rgb[yi + 2][xi + 0] = (255, 0, 0)
-						# 	rgb[yi + 3][xi + 0] = (255, 0, 0)
-						# 	# rgb[yi + 0][xi + 0] = ((rgb[yi + 0][xi + 1]/2 + rgb[yi + 0][xi - 1]/2))
-						# 	# rgb[yi + 1][xi + 0] = ((rgb[yi + 1][xi + 1]/2 + rgb[yi + 1][xi - 1]/2))
-						# 	# rgb[yi + 2][xi + 0] = ((rgb[yi + 2][xi + 1]/2 + rgb[yi + 2][xi - 1]/2))
-						# 	# rgb[yi + 3][xi + 0] = ((rgb[yi + 3][xi + 1]/2 + rgb[yi + 3][xi - 1]/2))
-						# else: # points
-						# 	rgb[yi + 0][xi + 0] = (0, 0, 255)
-						# 	rgb[yi + 2][xi + 0] = (0, 0, 255)
-						# 	# rgb[yi + 0][xi + 0] = rgb[yi + 1][xi + 0]
-						# 	# rgb[yi + 2][xi + 0] = rgb[yi + 3][xi + 0]
-						# else:
-						# 	pass
+								rgb[yi + 2][xi + 0] = rgb[yi + 2][xi + 1] / 4 + rgb[yi + 2][xi - 1] / 4 + rgb[yi + 1][
+									xi + 0] / 4 + rgb[yi + 3][xi - 0] / 4
+
 						continue
 
 	print(file+' -> '+str(time.time()-starttime))
 	cv2.imwrite(fixedpath+"\\"+file,rgb)
 
+filecount = 0
+filelistlen=len(filelist)
+timeStart = time.time()
+for file in filelist:
+	fixfile(file)
+	filecount += 1
 
-with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
-	time.time()
-	filecount = 0
-	for _ in executor.map(lambda x: fixfile(x), filelist):
-		filecount += 1
-		if filecount % 10 == 0:
-			timepassed=time.time()
-			estFullTime=(timePassed/filecount)*len(filelist)
-			msg=str(filecount) + "/" + str(filelistlen)
-			estTimeRemaining = max(0, estFullTime - timePassed)
-			msg += " " + str(datetime.timedelta(seconds=estTimeRemaining)).split('.')[0] + " remaining..."
-			print(msg)
+	if filecount % 10 == 0:
+		timePassed=time.time()-timeStart
+		timeStart = time.time()
+		# print(timePassed)
+		estTimeRemaining=(timePassed*(filelistlen-filecount))/10
+		# print(estFullTime)
+		msg=str(filecount) + "/" + str(len(filelist))
+		# estTimeRemaining = max(0, estFullTime - timePassed)
+		msg += " " + str(datetime.timedelta(seconds=estTimeRemaining)).split('.')[0] + " remaining..."
+		print(msg)
+
+# multithreaded is slower than plain sequential - cpu is not the bottleneck!
+# with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+# 	filecount = 0
+# 	for _ in executor.map(lambda x: fixfile(x), filelist):
+# 		filecount += 1
+# 		if filecount % 10 == 0:
+# 			timePassed = time.time() - timeStart
+# 			print(timePassed)
+# 			estFullTime = (timePassed * filelistlen) / filecount
+# 			print(estFullTime)
+# 			msg = str(filecount) + "/" + str(len(filelist))
+# 			estTimeRemaining = max(0, estFullTime - timePassed)
+# 			msg += " " + str(datetime.timedelta(seconds=estTimeRemaining)).split('.')[0] + " remaining..."
+# 			print(msg)
