@@ -19,13 +19,13 @@ print("base filename: "+basename)
 
 filelist = sorted([x for x in filelist if x.endswith(extension) and x.startswith(basename)])
 
-indexedfilename = basename + '_' + str(1).zfill(6) + extension
+indexedfilename = basename + str(0).zfill(6) + extension
 # os.rename(file,indexedfilename)
 print(filelist[0] + " -> " + indexedfilename)
 
 for fileidx in range(len(filelist)):
     file=filelist[fileidx]
-    indexedfilename=basename+'_'+str(fileidx+1).zfill(6)+extension
+    indexedfilename=basename+str(fileidx).zfill(6)+extension
     os.rename(file,indexedfilename)
     # print(file + " -> "+ indexedfilename)
 

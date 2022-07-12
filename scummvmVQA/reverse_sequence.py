@@ -6,6 +6,7 @@ extensions=[
     ".png",
     ".jpg",
     ".exr",
+    ".tif",
 ]
 
 filelist = sorted([x for x in os.listdir(".") if x.lower()[-4:] in extensions])
@@ -34,8 +35,8 @@ for fileidx in range(len(filelist)):
     if not os.path.exists(targetpath):
         os.mkdir(targetpath)
 
-    #shutil.copy(file, targetpath + '\\' + indexedfilename)
-    os.rename(file, targetpath + '\\' + indexedfilename)
+    shutil.copy(file, targetpath + '\\' + indexedfilename)
+    #os.rename(file, targetpath + '\\' + indexedfilename)
     # print(file + " -> "+ indexedfilename)
 
 print("Done.")
