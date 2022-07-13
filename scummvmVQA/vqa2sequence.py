@@ -21,7 +21,8 @@ for vqafile in vqafiles:
 
 		print(file, sequencename)
 
-		framecorrespondence.append( (vqafile, file, framecounter, sequencename, pathfilecounter) )
+		# framecorrespondence.append( (vqafile, file, framecounter, sequencename, pathfilecounter) )
+		framecorrespondence.append( (vqafile, file, framecounter, sequencename) )
 
 		shutil.copy(vqafile+'\\'+'vqa'+'\\'+file,sequencename)
 
