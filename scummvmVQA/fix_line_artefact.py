@@ -4,17 +4,25 @@ import sys
 import time
 import cv2
 import numpy as np
-# import multiprocessing
+
 import concurrent.futures
 import datetime
 
-sourceextension=".tif"
+sourceextension=".png"
 targetextension=".png"
 
-
 fixline=True
+
 fixpoints=True
+
+fixblack=True
+blackfloor = 8
+blursize = 3
+
 debug=False
+
+overwrite=False
+
 
 filelist = sorted([x for x in os.listdir(".") if x.lower().endswith(sourceextension)])
 
@@ -27,7 +35,7 @@ cv2.setUseOptimized(True)
 
 
 def fixfile(file):
-	if os.path.exists(fixedpath+"\\"+file):
+	if not overwrite and os.path.exists(fixedpath+"\\"+file):
 		return
 	starttime = time.time()
 	#rgb = cv2.imread(file, cv2.IMREAD_UNCHANGED)#.astype(np.float32)
@@ -37,9 +45,24 @@ def fixfile(file):
 	# 	for _ in executor.map(lambda xi: fixfile_x(rgb,xi), range(4, rgb.shape[1], 4)):
 	# 		pass
 
+	mask = cv2.inRange(rgb, np.array([0, 0, 0]), np.array([blackfloor, blackfloor, blackfloor]))
+	if fixblack:
+		# print(mask)
+		# rgb_blurry[mask==0]=[blackfloor,blackfloor,blackfloor]
+		rgb_blurry = cv2.blur(rgb.astype(np.float32), (blursize, blursize))
+		# rgb_blurry = cv2.GaussianBlur(rgb.astype(np.float32), (blursize, blursize),0)
+		# rgb_blurry = cv2.bilateralFilter(rgb.astype(np.float32), 30, 75, 75, cv2.BORDER_DEFAULT)
+
+		if debug:
+			rgb[mask!=0] = [255,255,0]
+		else:
+			rgb_blurry=rgb_blurry+blackfloor/2
+			rgb[mask!=0] = rgb_blurry[mask!=0].astype(np.uint8)
+
 	for yi in range(4, rgb.shape[0], 4):
 		for xi in range(4, rgb.shape[1], 4):
-			if np.average(rgb[yi, xi]) >= np.average(rgb[yi, xi + 1]) or np.average(rgb[yi, xi]) >= np.average(rgb[yi, xi - 1]):
+
+			if mask[yi,xi] is 0 or np.average(rgb[yi, xi]) >= np.average(rgb[yi, xi + 1]) or np.average(rgb[yi, xi]) >= np.average(rgb[yi, xi - 1]):
 				continue
 
 			# verticalpixel_1=rgb[yi+0][xi+0]
@@ -71,7 +94,8 @@ def fixfile(file):
 			def range_of_vals(x, axis=0):
 				return np.max(x, axis=axis) - np.min(x, axis=axis)
 
-			maxvariance = 10
+			#maxvariance = 10 # post neat
+			maxvariance = 8 # pre neat
 			# invalidate high variance bordering lines
 			if not (range_of_vals(verticalline_bordering_R_flat) > maxvariance and range_of_vals(
 					verticalline_bordering_G_flat) > maxvariance and range_of_vals(
@@ -148,10 +172,10 @@ def fixfile(file):
 					# 							 + rgb[yi + 1][xi - 1] / 4
 
 					verticalpixel_1 = rgb[yi + 0][xi + 0]
-					(verticalpixel_1_B, verticalpixel_1_G, verticalpixel_1_R) = verticalpixel_1
+					# (verticalpixel_1_B, verticalpixel_1_G, verticalpixel_1_R) = verticalpixel_1
 
 					verticalpixel_2 = rgb[yi + 2][xi + 0]
-					(verticalpixel_2_B, verticalpixel_2_G, verticalpixel_2_R) = verticalpixel_2
+					# (verticalpixel_2_B, verticalpixel_2_G, verticalpixel_2_R) = verticalpixel_2
 
 					# surroundings_discard_threshold=20
 					# if np.all(verticalpixel_1_surrounded-verticalpixel_1<surroundings_discard_threshold):
@@ -217,7 +241,8 @@ def fixfile(file):
 
 					# verticalpixel_h,verticalpixel_s,verticalpixel_v=cv2.cvtColor(np.array([np.array([verticalpixel])]),cv2.COLOR_RGB2HSV)[0][0]
 
-					threshold = 10
+					#threshold = 10 # post neat
+					threshold = 8 # pre neat
 					#
 					# if debug:
 					# 	rgb[yi + 0][xi + 0] = (0, 0, 255)
@@ -235,7 +260,8 @@ def fixfile(file):
 							rgb[yi + 0][xi + 0] = rgb[yi + 0][xi - 1] / 4 + rgb[yi + 0][xi + 1] / 4 + rgb[yi - 1][
 								xi + 0] / 4 + rgb[yi + 1][xi + 0] / 4
 
-						pixel_2_threshold = 5
+						#pixel_2_threshold = 5 # post neat
+						pixel_2_threshold = 3 # pre neat
 						# if np.all(verticalpixel_2_surrounded - verticalpixel_2 > pixel_2_threshold):
 						verticalpixel_2diff = np.max(block_avg - verticalpixel_2, axis=0)
 						# if block_R_avg - verticalpixel_2_R > pixel_2_threshold or block_G_avg - verticalpixel_2_G > pixel_2_threshold or block_B_avg - verticalpixel_2_B > pixel_2_threshold:
