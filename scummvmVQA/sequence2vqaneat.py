@@ -14,8 +14,29 @@ targetsubfolder="neat_smoother_2x_selected"
 
 # (vqafile, file, framecounter, sequencename, pathfilecounter)
 
+filesMissing=False
+
 # for (vqafile, file, framecounter, sequencename, pathfilecounter) in framecorrespondence:
 for (vqafile, file, framecounter, sequencename) in framecorrespondence:
+
+	sourcefilename=seqpath+'\\'+seqprefix+str(framecounter+1).zfill(zeropadnumbers)+".png"
+
+	if not os.path.exists(sourcefilename):
+		print("file missing: "+sourcefilename)
+		filesMissing=True
+		continue
+
+if filesMissing:
+	print("Files were missing! :O")
+	exit()
+
+lastVqa=""
+# for (vqafile, file, framecounter, sequencename, pathfilecounter) in framecorrespondence:
+for (vqafile, file, framecounter, sequencename) in framecorrespondence:
+
+	if vqafile!=lastVqa:
+		print(vqafile)
+		lastVqa=vqafile
 
 	sourcefilename=seqpath+'\\'+seqprefix+str(framecounter+1).zfill(zeropadnumbers)+".png"
 
@@ -29,6 +50,7 @@ for (vqafile, file, framecounter, sequencename) in framecorrespondence:
 		os.mkdir(targetpath)
 
 	shutil.copy(sourcefilename,targetpath+'\\'+file)
+	# os.rename(sourcefilename,targetpath+'\\'+file)
 
 
 
