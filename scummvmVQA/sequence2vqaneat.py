@@ -7,19 +7,34 @@ f = open('vqa2seq.pickle','rb')
 
 framecorrespondence=pickle.load(f)
 
-zeropadnumbers=8
-seqprefix="neat2x_sm_sel_"
-seqpath="neat_smoother_2x_selected"
-targetsubfolder="neat_smoother_2x_selected"
+filetype=".png"
+
+# zeropadnumbers=8
+zeropadnumbers=6
+# seqprefix="less_lessmid_"
+seqprefix=""
+seqpath="vqasequence\\linefix\\less_lessmid_lessmid_00000000_scale_2x_prob-3_png_softer"
+# seqprefix="endings_seq_"
+# seqpath="endings_selected"
+targetsubfolder="fix_less_less_mid_2x_softer"
 
 # (vqafile, file, framecounter, sequencename, pathfilecounter)
 
 filesMissing=False
 
+zerooffset=0
+
+if not os.path.exists(seqpath+'\\'+seqprefix+str(0).zfill(zeropadnumbers)+filetype):
+	print("1-"+str(len(framecorrespondence)))
+	zerooffset=1
+else:
+	print("0-"+str(len(framecorrespondence)-1))
+
+
 # for (vqafile, file, framecounter, sequencename, pathfilecounter) in framecorrespondence:
 for (vqafile, file, framecounter, sequencename) in framecorrespondence:
 
-	sourcefilename=seqpath+'\\'+seqprefix+str(framecounter+1).zfill(zeropadnumbers)+".png"
+	sourcefilename=seqpath+'\\'+seqprefix+str(framecounter+zerooffset).zfill(zeropadnumbers)+filetype
 
 	if not os.path.exists(sourcefilename):
 		print("file missing: "+sourcefilename)
@@ -38,7 +53,7 @@ for (vqafile, file, framecounter, sequencename) in framecorrespondence:
 		print(vqafile)
 		lastVqa=vqafile
 
-	sourcefilename=seqpath+'\\'+seqprefix+str(framecounter+1).zfill(zeropadnumbers)+".png"
+	sourcefilename=seqpath+'\\'+seqprefix+str(framecounter+zerooffset).zfill(zeropadnumbers)+filetype
 
 	if not os.path.exists(sourcefilename):
 		print("file missing: "+sourcefilename)
