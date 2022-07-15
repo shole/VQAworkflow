@@ -1,3 +1,19 @@
+done1
+neat_smoother_2x_selected
+br4, br5_moredetail
+
+done2
+fix_less_less_mid_2x
+less_lessmid_lessmid_00000000_scale_2x_prob-3_png
+br8_detail
+
+done3
+fix_less_less_mid_2x_softer
+less_lessmid_lessmid_00000000_scale_2x_prob-3_png_softer
+br9_less_sharp
+
+
+
 AR01_2 - done2, but edit smoother animation
 AR01_3 - done2, but edit smoother animation
 AR02_2 - done2, but edit smoother animation
@@ -119,8 +135,8 @@ HC03_2 - done2
 HC03_3 - done2
 HC04_2 - done2
 HC04_3 - done2
-HF01_2 - too sharp
-HF01_3 - too sharp
+HF01_2 - USE EXISTING
+HF01_3 - USE EXISTING
 HF02_2 - done2
 HF02_3 - done2
 HF03_2 - USE EXISTING
@@ -145,12 +161,12 @@ KP01_3 - done2
 KP02_3 - USE EXISTING
 KP03_3 - done2
 KP04_3 - done2
-KP05_3 - too sharp
+KP05_3 - done3
+KP06_3 - done3
 KP06ESP1
 KP06ESP2
 KP06ESP3
 KP06ESP4
-KP06_3 - too sharp
 KP07_3 - done2
 MA01- USE EXISTING
 MA01_2 - USE EXISTING
@@ -262,7 +278,7 @@ RC04_2 - done2
 RC04_3 - done2
 RC51 - done2
 RC51_3 - done2
-SCORE
+SCORE - done2
 SPINNER - USE EXISTING
 TB02_2 - USE EXISTING
 TB02_3 - USE EXISTING
@@ -275,7 +291,7 @@ TB06ESP4
 TB06_2 - done2
 TB07_2 - done2
 TB07_3 - done2
-TB_FLY_E
+TB_FLY_E - done2 ??????
 TWRD01_E - done2
 TWRD02_E - done
 TWRD03_E - done2
