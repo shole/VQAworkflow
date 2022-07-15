@@ -87,23 +87,23 @@ DR06OVR2
 DR06_2 - done2
 DR06_3 - done2
 DSCENT_E - done1
-END01A_E
-END01B_E
-END01C_E
-END01D_E
-END01E_E
-END01F_E
-END02_E
-END03_E
-END04A_E
-END04B_E
-END04C_E
-END04D_E
-END05_E
-END06_E
-END07_E
+END01A_E - done1
+END01B_E - done1
+END01C_E - done1
+END01D_E - done1
+END01E_E - done1
+END01F_E - done1
+END02_E - done1
+END03_E - done1
+END04A_E - done1
+END04B_E - done1
+END04C_E - done1
+END04D_E - done1
+END05_E - done1
+END06_E - done1
+END07_E - done1
 ESPER - USE EXISTING
-FLYTRU_E
+FLYTRU_E - done1
 HC01ESP1
 HC01ESP2
 HC01ESP3
@@ -166,10 +166,10 @@ MA04_3 - done2
 MA05 - done2
 MA05_2 ^use MA05 for all
 MA05_3 ^
-MA06 - fade with existing?
-MA06ELEV
-MA06_2 - fade with existing?
-MA06_3 - fade with existing?
+MA06 - done3
+MA06ELEV - done3 - edit
+MA06_2 - done3
+MA06_3 - done3
 MA07 - done2
 MA07_2^
 MA07_3^
@@ -227,13 +227,13 @@ PS06 - done2
 PS06_2 - done2
 PS07 - done2
 PS07_2 - done2
-PS09 - USE EXISTING - too sharp
-PS09_2 - USE EXISTING - too sharp
-PS09_3 - USE EXISTING - too sharp
-PS10 - USE EXISTING - too sharp
-PS10_2 - USE EXISTING - too sharp
-PS11 - done2 - too sharp
-PS11_2^
+PS09 - USE EXISTING
+PS09_2 - USE EXISTING
+PS09_3 - USE EXISTING
+PS10 - USE EXISTING
+PS10_2 - USE EXISTING
+PS11 - done2
+PS11_2 - done2
 PS12 - USE EXISTING - too sharp
 PS12_2 - USE EXISTING - too sharp
 PS13 - USE EXISTING - too sharp
@@ -279,37 +279,37 @@ TB_FLY_E
 TWRD01_E - done2
 TWRD02_E - done
 TWRD03_E - done2
-UG01_2 - too sharp
-UG01_3 - too sharp
-UG02_2 - too sharp
-UG02_3^
+UG01_2 - USE EXISTING - too sharp
+UG01_3 - USE EXISTING - too sharp
+UG02_2 - USE EXISTING - too sharp
+UG02_3 - USE EXISTING - too sharp
 UG03_2 - done2
 UG03_3 - done2
-UG04_2 - too sharp
-UG04_3^^
-UG05_3^
-UG06_2^^
-UG06_3^
-UG07_3 - USE EXISTING
-UG08_3 - too sharp
+UG04_2 - done2
+UG04_3 - done2
+UG05_3 - done3
+UG06_2 - done3 - clean sign in edit?
+UG06_3 - done3 - clean sign in edit?
+UG07_3 - done3
+UG08_3 - done3
 UG09_3 - done2
 UG10_2 - done2
 UG10_3 - done2
-UG12_3 - too sharp
-UG13_3 - too sharp
+UG12_3 - done3
+UG13_3 - done3
 UG14OVER
-UG14_3 - too sharp
+UG14_3 - done3
 UG15OVER
 UG15_3 - done2
 UG16_3 - done2
 UG17OVER
-UG17_3 - too sharp - use existing?
+UG17_3 - USE EXISTING
 UG18OVER
 UG18OVR2
 UG18OVR3
 UG18_3 - done2
-UG19_3 - too sharp
-VK - too sharp
+UG19_3 - done3 - fix loop
+VK - done3
 VKBOB
 VKDEKT
 VKKASH
