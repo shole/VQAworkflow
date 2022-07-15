@@ -9,3 +9,6 @@
 *.wav
 *.7z
 scummvmVQA/*/*
+*.bik
+*.lst
+*.bik.tmp
