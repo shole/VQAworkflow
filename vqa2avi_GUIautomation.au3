@@ -17,8 +17,9 @@ Local $filelist=["AR01_2", "AR01_3", "AR02_2", "AR02_3", "ASCENT_E", "AWAY01_E",
 
 
 For $filename In $filelist	
+	If Not FileExists("D:\br_re\VQA\" & $filename & ".wav") Then ; wav
 	;If Not FileExists("D:\br_re\VQA\" & $filename & ".avi") Then ; avi
-	If Not FileExists("D:\br_re\VQA\" & $filename ) Then ; pcx
+	;If Not FileExists("D:\br_re\VQA\" & $filename ) Then ; pcx
 		MsgBox($MB_SYSTEMMODAL, "", $filename, 1)
 
 
@@ -40,7 +41,7 @@ For $filename In $filelist
 
 		Sleep(100)
 
-		Send("e:\br_re\VQA\")
+		Send("d:\br_re\VQA\")
 		Send($filename)
 		Send(".vqa")
 		Send("{ENTER}")
@@ -82,8 +83,9 @@ For $filename In $filelist
 
 		Sleep(100)
 
-		Send("e:\br_re\VQA\")
+		Send("d:\br_re\VQA\")
 		Send($filename)
+		Send(".wav")
 		Send("{ENTER}")
 
 		Sleep(100)
