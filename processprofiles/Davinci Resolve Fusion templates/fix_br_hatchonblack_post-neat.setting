@@ -1,0 +1,124 @@
+{
+	Tools = ordered() {
+		fix_br_hatchonblack_postneat = GroupOperator {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "Null1_1_1",
+					Source = "Input",
+				}
+			},
+			Outputs = {
+				Output1 = InstanceOutput {
+					SourceOp = "Merge1_1_1",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 466.14, 100.468 },
+				Flags = {
+					Expanded = true,
+					AllowPan = false,
+					AutoSnap = true,
+					RemoveRouters = true
+				},
+				Size = { 484, 134.242, 242, 24.2424 },
+				Direction = "Horizontal",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { -466.14, -100.468 }
+			},
+			Tools = ordered() {
+				BoxBlur1_1_1 = ofx.com.blackmagicdesign.resolvefx.BoxBlur {
+					Inputs = {
+						Source = Input {
+							SourceOp = "Null1_1_1",
+							Source = "Output",
+						},
+						HStrength = Input { Value = 0.1117, },
+						VStrength = Input { Value = 0.25, },
+						Gang = Input { Value = 1, },
+						advancedControlsGroup = Input { Value = 1, },
+						Iterations = Input { Value = 1, },
+						BorderType = Input { Value = FuID { "BORDER_TYPE_REFLECT" }, },
+						BlendAmount = Input { Value = 0, },
+						blendGroup = Input { Value = 0, },
+						blendIn = Input { Value = 1, },
+						blend = Input { Value = 0, },
+						ignoreContentShape = Input { Value = 0, },
+						legacyIsProcessRGBOnly = Input { Value = 0, },
+						refreshTrigger = Input { Value = 1, },
+						resolvefxVersion = Input { Value = "2.5", },
+					},
+					ViewInfo = OperatorInfo { Pos = { 397.14, 109.71 } },
+				},
+				Merge1_1_1 = Merge {
+					Inputs = {
+						EffectMask = Input {
+							SourceOp = "ErodeDilate2_1_1",
+							Source = "Output",
+						},
+						Background = Input {
+							SourceOp = "BoxBlur1_1_1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "ErodeDilate2_1_1",
+							Source = "Output",
+						},
+						PerformDepthMerge = Input { Value = 0, },
+					},
+					ViewInfo = OperatorInfo { Pos = { 645.14, 109.104 } },
+				},
+				Null1_1_1 = Fuse.Null {
+					Inputs = {
+						Input = Input {
+							SourceOp = "ReduceNoisev51",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 287.14, 130.317 } },
+				},
+				LumaKeyer1_1_1 = LumaKeyer {
+					Inputs = {
+						High = Input { Value = 0.02, },
+						Filter = Input { Value = FuID { "Fast Gaussian" }, },
+						Input = Input {
+							SourceOp = "Null1_1_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 375.807, 176.983 } },
+				},
+				ErodeDilate2_1_1 = ErodeDilate {
+					Inputs = {
+						Red = Input { Value = 0, },
+						Green = Input { Value = 0, },
+						Blue = Input { Value = 0, },
+						XAmount = Input { Value = 0.003, },
+						Input = Input {
+							SourceOp = "ErodeDilate1_1_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 609.807, 173.953 } },
+				},
+				ErodeDilate1_1_1 = ErodeDilate {
+					Inputs = {
+						Red = Input { Value = 0, },
+						Green = Input { Value = 0, },
+						Blue = Input { Value = 0, },
+						Filter = Input { Value = 3, },
+						XAmount = Input { Value = -0.003, },
+						Input = Input {
+							SourceOp = "LumaKeyer1_1_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 485.807, 176.983 } },
+				}
+			},
+		}
+	}
+}

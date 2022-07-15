@@ -40,7 +40,7 @@ For $filename In $filelist
 
 		Sleep(100)
 
-		Send("D:\br_re\VQA\")
+		Send("e:\br_re\VQA\")
 		Send($filename)
 		Send(".vqa")
 		Send("{ENTER}")
@@ -49,6 +49,19 @@ For $filename In $filelist
 
 		Sleep(100)
 
+
+		;Class:	Static
+		;Instance:	32
+		;ClassnameNN:	Static32
+		;Name:	
+		;Advanced (Class):	[CLASS:Static; INSTANCE:32]
+		;ID:	1019
+		;Text:	0
+		
+		If ControlGetText ( "VQA to AVI Converter written by Tim Kosse", "", "Static32" ) == "0" Then ; .Wav, skip if no audio in VQA
+			ContinueLoop
+		EndIf
+		
 
 		;ClassnameNN:	Button1
 		;Advanced (Class):	[CLASS:Button; INSTANCE:1]
@@ -60,16 +73,16 @@ For $filename In $filelist
 		Sleep(100)
 		Send("{DOWN}") ; AVI
 		Send("{DOWN}") ; PCX
-		;Send("{DOWN}") ; Wav
+		Send("{DOWN}") ; Wav
 		Sleep(100)
 		Send("{ENTER}")
 
-		_WinWaitActivate("Enter output folder","") ; pcx
-		;_WinWaitActivate("Save As","") ; avi, wav
+		;_WinWaitActivate("Enter output folder","") ; pcx
+		_WinWaitActivate("Save As","") ; avi, wav
 
 		Sleep(100)
 
-		Send("D:\br_re\VQA\")
+		Send("e:\br_re\VQA\")
 		Send($filename)
 		Send("{ENTER}")
 
