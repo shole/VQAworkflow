@@ -1,0 +1,151 @@
+{
+	Tools = ordered() {
+		fix_br_vertical_line = GroupOperator {
+			CtrlWZoom = false,
+			NameSet = true,
+			Inputs = ordered() {
+				Input1 = InstanceInput {
+					SourceOp = "Null1",
+					Source = "Input",
+				}
+			},
+			Outputs = {
+				Output1 = InstanceOutput {
+					SourceOp = "Merge1",
+					Source = "Output",
+				}
+			},
+			ViewInfo = GroupInfo {
+				Pos = { 440.475, 57.083 },
+				Flags = {
+					Expanded = true,
+					AllowPan = false,
+					AutoSnap = true,
+					RemoveRouters = true
+				},
+				Size = { 640, 240.498, 320, 24.2424 },
+				Direction = "Horizontal",
+				PipeStyle = "Direct",
+				Scale = 1,
+				Offset = { -439.808, -57.083 }
+			},
+			Tools = ordered() {
+				ColorCorrector1 = ColorCorrector {
+					Inputs = {
+						MasterRGBGain = Input { Value = 1.2, },
+						ColorRanges = Input {
+							Value = ColorCurves {
+								Curves = {
+									{
+										Points = {
+											{ 0, 1 },
+											{ 0.4, 0.2 },
+											{ 0.6, 0 },
+											{ 1, 0 }
+										}
+									},
+									{
+										Points = {
+											{ 0, 0 },
+											{ 0.4, 0 },
+											{ 0.6, 0.2 },
+											{ 1, 1 }
+										}
+									}
+								}
+							},
+						},
+						HistogramIgnoreTransparent = Input { Value = 1, },
+						Input = Input {
+							SourceOp = "DirectionalBlur1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 696.808, 68.4163 } },
+				},
+				DirectionalBlur1 = DirectionalBlur {
+					Inputs = {
+						Type = Input { Value = 2, },
+						Length = Input { Value = 0.004, },
+						Input = Input {
+							SourceOp = "Null1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 558.808, 65.7193 } },
+				},
+				Null1 = Fuse.Null {
+					Inputs = {
+						Input = Input {
+							SourceOp = "MediaIn1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 182.808, 144.507 } },
+				},
+				Merge1 = Merge {
+					Inputs = {
+						Background = Input {
+							SourceOp = "ColorCorrector1",
+							Source = "Output",
+						},
+						Foreground = Input {
+							SourceOp = "Null1",
+							Source = "Output",
+						},
+						PerformDepthMerge = Input { Value = 0, },
+						EffectMask = Input {
+							SourceOp = "Bitmap1",
+							Source = "Mask",
+						}
+					},
+					ViewInfo = OperatorInfo { Pos = { 683.475, 179.053 } },
+				},
+				DirectionalBlur1_1 = DirectionalBlur {
+					Inputs = {
+						Type = Input { Value = 2, },
+						Length = Input { Value = 0.006, },
+						Angle = Input { Value = 90, },
+						Input = Input {
+							SourceOp = "Null1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 290.808, 214.81 } },
+				},
+				CleanPlate1 = CleanPLate {
+					Inputs = {
+						Method = Input { Value = FuID { "Ranges" }, },
+						High = Input { Value = 1, },
+						RangesLockPicking = Input { Value = 1, },
+						RangesHighLuminance = Input { Value = 0.035, },
+						Erode = Input { Value = 0.0004, },
+						HoldTime = Input { Value = 29, },
+						["Garbage.MaskNest"] = Input { Value = 1, },
+						Input = Input {
+							SourceOp = "DirectionalBlur1_1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 403.093, 236.262 } },
+				},
+				Bitmap1 = BitmapMask {
+					Inputs = {
+						Filter = Input { Value = FuID { "Fast Gaussian" }, },
+						Invert = Input { Value = 1, },
+						MaskWidth = Input { Value = 1280, },
+						MaskHeight = Input { Value = 960, },
+						PixelAspect = Input { Value = { 1, 1 }, },
+						UseFrameFormatSettings = Input { Value = 1, },
+						ClippingMode = Input { Value = FuID { "None" }, },
+						Image = Input {
+							SourceOp = "CleanPlate1",
+							Source = "Output",
+						},
+					},
+					ViewInfo = OperatorInfo { Pos = { 527.093, 241.444 } },
+				}
+			},
+		}
+	}
+}
