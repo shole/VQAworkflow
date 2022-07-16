@@ -1,13 +1,13 @@
 @echo off
 
-SET sourcefilelist=endings.txt
-SET sourcepath=neat_smoother_2x_selected
-SET sourcepathprefix=endings
+SET sourcefilelist=merged.txt
+SET sourcepath=merged_2x
+SET sourcepathprefix=.
 
 goto bink
 REM goto raw
-REM goto h264
-
+goto h264
+	
 :bink 
 SET outputpostfix=
 for /F "tokens=*" %%A in (%sourcefilelist%) do (
@@ -23,7 +23,7 @@ for /F "tokens=*" %%A in (%sourcefilelist%) do (
 goto loopend
 
 :h264
-SET outputpostfix=_h264
+SET outputpostfix=_merged_h264
 for /F "tokens=*" %%A in (%sourcefilelist%) do (
 	echo %sourcefilelist% - %%A
 	if exist ..\VQA\%%A.wav (
