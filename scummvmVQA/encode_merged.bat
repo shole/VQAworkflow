@@ -53,7 +53,7 @@ EXIT /B 0
 SET outputpostfix=%identifier%_h264
 for /F "tokens=*" %%A in (%sourcefilelist%) do (
 	echo %sourcefilelist% - %%A h264 sbs
-	if not exist "%%A%outputpostfix%.mp4" (		
+	if not exist "%%A_SBS%outputpostfix%.mp4" (		
 		if exist ..\VQA\%%A.wav (
 			REM echo %%A.wav exists
 			REM #ffmpeg -i "%*" -c:v libx264 -preset fast -crf 12 -x264-params mvrange=511 -maxrate 50M -bufsize 25M -pix_fmt yuv420p -movflags faststart "%*_h264.mp4"
