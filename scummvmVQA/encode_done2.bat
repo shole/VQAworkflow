@@ -22,7 +22,7 @@ for /F "tokens=*" %%A in (%sourcefilelist%) do (
 		..\radtools\radvideo64 binkc %sourcefilelist%.lst /F15 /P32 %%A.bik /#
 		if exist ..\VQA\%%A.wav (
 			move %%A.bik %%A_noaudio.bik
-			..\radtools\radvideo64 binkmix %%A_noaudio.bik ..\vqa\%%A.wav %%A.bik /#
+			..\radtools\radvideo64 binkmix %%A_noaudio.bik ..\vqa\%%A.wav %%A.bik /L1 /#
 		)
 		del %sourcefilelist%.lst >NUL
 	)
