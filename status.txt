@@ -150,8 +150,8 @@ HF06_3 - done2
 HF07_3 - done
 INSD01_E - USE EXISTING
 INSD02_E - USE EXISTING
-INTRGT_E -done - done2 -compare alts
-INTRO_E - done - compare specific scenes - take spinner shot from existing
+INTRGT_E -done1
+INTRO_E - merged
 KIAOVER
 KIA_CLUE
 KIA_CRIM
@@ -183,13 +183,13 @@ MA05 - done2
 MA05_2 ^use MA05 for all
 MA05_3 ^
 MA06 - done3
-MA06ELEV - done3 - edit
+MA06ELEV - done3
 MA06_2 - done3
 MA06_3 - done3
 MA07 - done2
 MA07_2^
 MA07_3^
-MW_A_E - done - replace dirty shot with done2
+MW_A_E - merged
 MW_B01_E - USE EXISTING
 MW_B02_E - USE EXISTING
 MW_B03_E - USE EXISTING
@@ -198,7 +198,7 @@ MW_B05_E - done1
 MW_C01_E - done1
 MW_C02_E - done1
 MW_C03_E - done1
-MW_D_E - done - check if done2 can help
+MW_D_E - done
 NR01_2 - USE EXISTING
 NR01_3 - USE EXISTING
 NR02_2 - USE EXISTING
@@ -291,7 +291,7 @@ TB06ESP4
 TB06_2 - done2
 TB07_2 - done2
 TB07_3 - done2
-TB_FLY_E - done2 ??????
+TB_FLY_E - done2
 TWRD01_E - done2
 TWRD02_E - done
 TWRD03_E - done2
@@ -304,8 +304,8 @@ UG03_3 - done2
 UG04_2 - done2
 UG04_3 - done2
 UG05_3 - done3
-UG06_2 - done3 - clean sign in edit?
-UG06_3 - done3 - clean sign in edit?
+UG06_2 - merged
+UG06_3 - ^ use
 UG07_3 - done3
 UG08_3 - done3
 UG09_3 - done2
@@ -324,7 +324,7 @@ UG18OVER
 UG18OVR2
 UG18OVR3
 UG18_3 - done2
-UG19_3 - done3 - fix loop
+UG19_3 - merged
 VK - done3
 VKBOB
 VKDEKT

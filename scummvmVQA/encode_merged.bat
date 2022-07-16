@@ -1,9 +1,9 @@
 @echo off
 
-SET sourcefilelist=done2.txt
-SET sourcepath=fix_less_less_mid_2x
+SET sourcefilelist=merged.txt
+SET sourcepath=merged_2x
 SET sourcepathprefix=.
-SET identifier=_done2
+SET identifier=_merged
 
 call :bink
 REM call :raw
