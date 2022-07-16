@@ -13,8 +13,8 @@ copy CT03.bik CT03_2.bik
 copy CT03.bik CT03_3.bik
 copy CT04_3.bik CT04.bik
 copy CT04_3.bik CT04_2.bik
-copy CT05_3.bik CT05.bik
-copy CT05_3.bik CT05_2.bik
+copy CT05.bik CT05_3.bik
+copy CT05.bik CT05_2.bik
 copy CT06_3.bik CT06.bik
 copy CT06_3.bik CT06_2.bik
 
@@ -26,6 +26,7 @@ copy CT12.bik CT12_2.bik
 copy CT12.bik CT12_3.bik
 copy DR04_2.bik DR04_3.bik
 copy DR05_2.bik DR05_3.bik
+copy DR06_3.bik DR06_2.bik
 copy HC01_2.bik HC01_3.bik
 copy HC03_3.bik HC03_2.bik
 copy HF01_3.bik HF01_2.bik
@@ -39,8 +40,8 @@ copy MA01_2.bik MA01.bik
 copy MA02_3.bik MA02_2.bik
 copy MA02_3.bik MA02.bik
 
-copy MA04_3.bik MA04_2.bik
-copy MA04_3.bik MA04.bik
+copy MA04.bik MA04_2.bik
+copy MA04.bik MA04_3.bik
 copy MA05.bik MA05_2.bik
 copy MA05.bik MA05_3.bik
 copy MA06_3.bik MA06_2.bik
@@ -59,8 +60,9 @@ copy NR10_3.bik NR10_2.bik
 copy NR11_2.bik NR11_3.bik
 copy PS01_2.bik PS01.bik
 copy PS02_2.bik PS02.bik
-copy PS04.bik PS04_2.bik
 copy PS03_2.bik PS03.bik
+copy PS04_2.bik PS04.bik
+copy PS04_2.bik PS04_3.bik
 copy PS05_2.bik PS05.bik
 copy PS06_2.bik PS06.bik
 copy PS07_2.bik PS07.bik
